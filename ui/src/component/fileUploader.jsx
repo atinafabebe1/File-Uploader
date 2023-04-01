@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button } from "react-bootstrap";
+import "./FileTable.css";
 
 function FileTable() {
   const [files, setFiles] = useState([]);
 
   // Fetch list of uploaded files from API on component mount
   useEffect(() => {
-    fetch("/api/file")
+    fetch("/file")
       .then((response) => response.json())
-      .then((data) => setFiles(data))
+      .then((data) => {
+        setFiles(data);
+      })
       .catch((error) => console.error(error));
   }, []);
 
   // Handle file upload form submission
   const handleUpload = (event) => {
-    event.preventDefault();
-    const file = event.target.file.files[0];
+    const fileInput = event.target.file;
+    const file = fileInput.files[0];
+
+    // Check if a file has been selected
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
 
     // Check file size before uploading
     if (file.size > 10 * 1024 * 1024) {
@@ -26,7 +34,7 @@ function FileTable() {
     const formData = new FormData();
     formData.append("file", file);
 
-    fetch("/api/file", {
+    fetch("/file", {
       method: "POST",
       body: formData,
     })
@@ -37,22 +45,25 @@ function FileTable() {
 
   // Handle file removal
   const handleRemove = (file) => {
-    fetch(`/api/file/${file.id}`, {
+    console.log(files);
+    fetch(`/file/${file.id}`, {
       method: "DELETE",
     })
-      .then(() => setFiles(files.filter((f) => f.id !== file.id)))
+      .then(() => {
+        setFiles((prevFiles) => prevFiles.filter((f) => f.id !== file.id));
+      })
       .catch((error) => console.error(error));
   };
 
   return (
-    <div>
+    <div className="file-table">
       <h2>Uploaded Files</h2>
       <form onSubmit={handleUpload}>
         <label htmlFor="file">Upload File:</label>
         <input type="file" id="file" name="file" />
         <button type="submit">Upload</button>
       </form>
-      <Table striped bordered hover>
+      <table>
         <thead>
           <tr>
             <th>File Name</th>
@@ -64,18 +75,21 @@ function FileTable() {
         <tbody>
           {files.map((file) => (
             <tr key={file.id}>
-              <td>{file.name}</td>
-              <td>{(file.size / 1024 / 1024).toFixed(2)} MB</td>
-              <td>{new Date(file.uploadedDate).toLocaleString()}</td>
+              <td>{file.fileName}</td>
+              <td>{file.size} MB</td>
+              <td>{new Date(file.uploadDate).toLocaleString()}</td>
               <td>
-                <Button variant="danger" onClick={() => handleRemove(file)}>
+                <button
+                  className="remove-button"
+                  onClick={() => handleRemove(file)}
+                >
                   Remove
-                </Button>
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
+      </table>
     </div>
   );
 }

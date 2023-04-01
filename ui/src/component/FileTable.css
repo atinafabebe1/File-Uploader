@@ -1,0 +1,75 @@
+/* FileTable.css */
+
+.file-table {
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.file-table h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.file-table form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.file-table label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.file-table input[type="file"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.file-table button[type="submit"] {
+    padding: 5px 10px;
+    background-color: #1c7cd6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.file-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.file-table th {
+    background-color: #1c7cd6;
+    color: #fff;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: left;
+    padding: 10px;
+    border: none;
+}
+
+.file-table td {
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.file-table td:last-child {
+    text-align: center;
+}
+
+.remove-button {
+    background-color: #d62d20;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
