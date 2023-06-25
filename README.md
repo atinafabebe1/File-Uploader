@@ -2,6 +2,10 @@
 
 This is a file uploader built using the MERN stack (MongoDB, Express, React, Node.js) and the Multer package for handling file uploads. It allows users to upload, delete and get files.
 
+### Demo
+
+https://github.com/atinafabebe1/File-Uploader/assets/109695272/af61a350-852e-457a-83ab-76a414ba9dc0
+
 # Features
 
 Upload files to the server
